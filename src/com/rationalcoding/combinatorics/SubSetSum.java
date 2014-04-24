@@ -13,7 +13,7 @@ public class SubSetSum {
 
 	/**
 	 * public method which is exposed for calling. Input is a sorted array of
-	 * positive numbers. Target sum is desired target sum.
+	 * positive numbers and duplicates are no allowed. Target sum is desired target sum.
 	 * 
 	 * @param input
 	 * @param targetSum

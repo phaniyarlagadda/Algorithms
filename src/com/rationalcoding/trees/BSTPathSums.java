@@ -4,7 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BSTPathSums {
-
+	
+	/**
+	 * Util to generate all paths from root to leaf with target sum. A valid tree root and target sum are passed as inputs.
+	 * Running time is O(n)
+	 * @param root
+	 * @param targetSum
+	 * @return
+	 */
 	public List<ArrayList<TreeNode>> getPathsWithSum(TreeNode root, int targetSum) {
 		// a util is used so that we can check for inputs and other conditions if
 		// neccessary here
