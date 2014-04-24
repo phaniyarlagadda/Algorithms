@@ -5,5 +5,6 @@ Implementations of below problems
 2. Permutations of integer array 
 3. Combinations of List of integers.
 4. Target Sum from Root to leaf paths BST
+5. Subset with target sum
 
 All the implementations have test cases. To run the test cases you need TestNG & Apache commons lang

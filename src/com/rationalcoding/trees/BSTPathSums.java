@@ -27,7 +27,7 @@ public class BSTPathSums {
 			}
 			return mergedPaths;
 		}
-		// if root is not leaf recursively search on left and right sub trees
+		// if root is not leaf recursively search on left and right sub trees with new target sum as difference of target sum and root value
 		List<ArrayList<TreeNode>> leftSubTreePaths = new ArrayList<ArrayList<TreeNode>>();
 		List<ArrayList<TreeNode>> rightSubTreePaths = new ArrayList<ArrayList<TreeNode>>();
 		if (root.getLeftChild() != null) {
@@ -36,13 +36,15 @@ public class BSTPathSums {
 		if (root.getRightChild() != null) {
 			rightSubTreePaths = getPathsWithSumUtil(root.getRightChild(), targetSum - root.getKey());
 		}
-
+		
+		// if paths are found on sub trees then add add root to each path
 		for (ArrayList<TreeNode> path : leftSubTreePaths) {
 			path.add(root);
 		}
 		for (ArrayList<TreeNode> path : rightSubTreePaths) {
 			path.add(root);
 		}
+		// merge paths of left and right sub trees
 		mergedPaths.addAll(leftSubTreePaths);
 		mergedPaths.addAll(rightSubTreePaths);
 		return mergedPaths;
