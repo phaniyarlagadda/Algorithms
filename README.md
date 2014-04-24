@@ -1,6 +1,6 @@
 Algorithms
 ==========
-Implementations to generate 
+Implementations of below problems
 1. Permutations of string 
 2. Permutations of integer array 
 3. Combinations of List of integers.
