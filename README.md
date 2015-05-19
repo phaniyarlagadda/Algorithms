@@ -1,10 +1,11 @@
 Algorithms
 ==========
 Implementations of below problems
-1. Permutations of string 
-2. Permutations of integer array 
-3. Combinations of List of integers.
-4. Target Sum from Root to leaf paths BST
-5. Subset with target sum
-
+1. Build an expression which evaluates to target sum.
+2. Generate all subsets in recursive manner.
+3. Generate all subsets in iterative manner.
+4. Generate combinations
+5. Generate permutations
+6. Generate subsets with target sum.
+ 
 All the implementations have test cases. To run the test cases you need TestNG & Apache commons lang

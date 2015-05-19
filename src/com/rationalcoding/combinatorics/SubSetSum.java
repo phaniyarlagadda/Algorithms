@@ -1,9 +1,8 @@
 package com.rationalcoding.combinatorics;
 
-import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Util class to generate combinations
@@ -11,102 +10,55 @@ import java.util.Iterator;
  */
 public class SubSetSum {
 
-	/**
-	 * public method which is exposed for calling. Input is a sorted array of
-	 * positive numbers and duplicates are no allowed. Target sum is desired target sum.
-	 * 
-	 * @param input
-	 * @param targetSum
-	 * @return
-	 */
-	public ArrayList<ArrayList<Integer>> getCombinations(int[] input, int targetSum) {
-		// list of lists to hold required combinations
-		ArrayList<ArrayList<Integer>> combinations = new ArrayList<ArrayList<Integer>>();
-		// using array deque since it provides better implementation of stack
-		ArrayDeque<Integer> currentElementStack = new ArrayDeque<Integer>();
-		// generate combinations is called with starting element and empty stack and
-		// current stack sum as zero
-		generateCombinations(input, targetSum, 0, currentElementStack, 0, combinations);
-		return combinations;
-	}
-
-	/**
-	 * Util method to generate combinations and add the found combination to
-	 * required combination list. This method calls itself recursively. It starts
-	 * from start index of input array until end. At each step of loop we see if
-	 * the element fits the combination. If sum of element and sum of all elements
-	 * in stack is equal to target then a combintion is found so element is pushed
-	 * onto stack. If sum of element and sum of all elements in stack is less than
-	 * target we will try recursively on the remaining elements if any of it fits
-	 * the combination by pushing the current element onto stack If sum of element
-	 * and sum of all elements in stack is greater than target we can break loop
-	 * since remaining elements all are greater and wont fit the combination After
-	 * recursion ends element is popped and loop continues with next element
-	 * Recursion ends when end of array is reached or current sum has become
-	 * greater than target sum. When a valid combination is found it is added to
-	 * list of combinations
-	 * 
-	 * @param input
-	 * @param targetSum
-	 * @param startIndex
-	 * @param currentElementsStack
-	 * @param currentStackSum
-	 * @param combinations
-	 */
-	private void generateCombinations(int[] input, int targetSum, int startIndex,
-			ArrayDeque<Integer> currentElementsStack, int currentStackSum,
-			ArrayList<ArrayList<Integer>> combinations) {
-
-		// loop through elements from current start index till end
-		for (int currentIndex = startIndex; currentIndex < input.length; currentIndex++) {
-			// see if the element fits in a combination.
-			// if current element when added to current sum is less than or equal to
-			// target sum then there is a chance it can be part of target sum
-			int currentSum = currentStackSum + input[currentIndex];
-			if (currentSum == targetSum) {
-				// handle target sum found
-				currentElementsStack.push(input[currentIndex]);
-				handleTargetSumFound(currentElementsStack, combinations);
-				currentElementsStack.pop();
-				// if target sum is found then remianing elements will fit in required
-				// combination since it is a increasing sequence so we can break
-				break;
-			} else if (currentSum < targetSum) {
-				// if current sum is less than target sum try with remaining elements
-				// call recursively on remaining elements from next index. recursion
-				// ends when we tried all elements or no valid elements found
-				currentElementsStack.push(input[currentIndex]);
-				generateCombinations(input, targetSum, currentIndex + 1, currentElementsStack, currentSum,
-						combinations);
-				// pop the element and try with remaining elements in array
-				currentElementsStack.pop();
-			} else {
-				// if current sum is greater than target sum we can break since elements
-				// are sorted and in increasing order.
-				// all the remaining elements wont fit the required combination
-				break;
-			}
-		}
-	}
-
-	/**
-	 * Util method to handle when target sum found. Creates an array list from
-	 * elements of stack and adds the array list to required combination list
-	 * 
-	 * @param elementStack
-	 * @param combinations
-	 */
-	private void handleTargetSumFound(ArrayDeque<Integer> elementStack,
-			ArrayList<ArrayList<Integer>> combinations) {
-		// iterate through current stack elements and add them to required
-		// combination
-		ArrayList<Integer> foundCombination = new ArrayList<Integer>();
-		Iterator<Integer> elementIterator = elementStack.iterator();
-		while (elementIterator.hasNext()) {
-			foundCombination.add(elementIterator.next());
-		}
-		// reverse the array list for better readability
-		Collections.reverse(foundCombination);
-		combinations.add(foundCombination);
-	}
+private List<ArrayList<Integer>> subsets ;
+   
+   public List<ArrayList<Integer>> findSubsetsWithTargetSum(int[] input, int targetSum){
+      Arrays.sort(input);
+      subsets = new ArrayList<ArrayList<Integer>>();
+      int currentSum = 0;
+      boolean[] partial = new boolean[input.length];
+      backtrack(input, targetSum, 0, partial, currentSum);
+      return subsets;
+   }
+   
+   private void backtrack(int[] input, int targetSum, int k, boolean[] partial, int currentSum){
+      
+      // check if partial is the solution
+      // process if true
+      if(isSolution(input, k, partial) ){
+         // process only if target sum and current sum are equal
+         if(targetSum == currentSum){
+            processSolution(input, targetSum, k, partial, currentSum);
+         }
+         return;
+      }else if(currentSum > targetSum){
+         // return since array is sorted other elements wont fit
+         return;
+      }
+      // 2 possibilities for each element.
+      // either it is present in the subset or it is not present in subset
+      partial[k] = false;
+      // recursively call for remaining elements
+      backtrack(input, targetSum, k+1, partial, currentSum);
+      partial[k] = true;
+      // update the current sum since element is part of subset
+      backtrack(input, targetSum, k+1, partial, currentSum+input[k]);
+   }
+   
+   private boolean isSolution(int[] input, int k , boolean[] partial){
+      return (k == input.length);
+   }
+   
+   private void processSolution(int[] input, int targetSum, int k , boolean[] partial, int currentSum){
+      // add to required if sum equals target sum
+      // construct the output based on the partial
+      // if an element is true then it means the element in input at that index is part of the subset
+      ArrayList<Integer> currentSubSet = new ArrayList<Integer>();
+      for(int index=0; index < partial.length; index++){
+         if(partial[index]){
+            currentSubSet.add(input[index]);
+         }
+      }
+      subsets.add(currentSubSet);
+   }   
 }

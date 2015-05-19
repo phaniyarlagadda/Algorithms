@@ -2,6 +2,7 @@ package com.rationalcoding.combinatorics.tests;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.testng.Assert;
@@ -20,18 +21,9 @@ public class SubSetSumTest {
 	
   @Test
   public void testOneCombinationPresent() {
-	  int[] input = { 4,5,6,7};
+	  int[] input = { 6,4,7,5};
 	  int targetSum = 9;
-	  ArrayList<ArrayList<Integer>>  combinations = subSetSumUtil.getCombinations(input, targetSum);
-	  printCombinations(combinations,targetSum, input);
-	  	  
-  }
-  
-  @Test
-  public void testOneCombinationPresentMiddleElements() {
-	  int[] input = { 4,5,6,9};
-	  int targetSum = 11;
-	  ArrayList<ArrayList<Integer>>  combinations = subSetSumUtil.getCombinations(input, targetSum);
+	  List<ArrayList<Integer>>  combinations = subSetSumUtil.findSubsetsWithTargetSum(input, targetSum);
 	  printCombinations(combinations,targetSum, input);
 	  	  
   }
@@ -40,16 +32,16 @@ public class SubSetSumTest {
   public void testMultipleCombinationsPresent() {
 	  int[] input = { 1,2,3,6,7,8};
 	  int targetSum = 10;
-	  ArrayList<ArrayList<Integer>>  combinations = subSetSumUtil.getCombinations(input, targetSum);
+	  List<ArrayList<Integer>>  combinations = subSetSumUtil.findSubsetsWithTargetSum(input, targetSum);
 	  printCombinations(combinations,targetSum, input);
 	  	  
   }
   
   @Test
   public void testSingleElement() {
-	  int[] input = { 1,2,3,6,7,8};
+	  int[] input = { 8,4,5,2,3};
 	  int targetSum = 2;
-	  ArrayList<ArrayList<Integer>>  combinations = subSetSumUtil.getCombinations(input, targetSum);
+	  List<ArrayList<Integer>>  combinations = subSetSumUtil.findSubsetsWithTargetSum(input, targetSum);
 	  printCombinations(combinations,targetSum, input);
 	  	  
   }
@@ -58,34 +50,34 @@ public class SubSetSumTest {
   public void testAllElementPresentCombination() {
 	  int[] input = { 4,5,6,7};
 	  int targetSum = 22;
-	  ArrayList<ArrayList<Integer>>  combinations = subSetSumUtil.getCombinations(input, targetSum);
+	  List<ArrayList<Integer>>  combinations = subSetSumUtil.findSubsetsWithTargetSum(input, targetSum);
 	  printCombinations(combinations,targetSum, input);
 	  	  
   }
   
   @Test
   public void testCombinationNotPresentSumWithinRange() {
-	  int[] input = { 4,5,6,7};
+	  int[] input = { 3,7,9,10};
 	  int targetSum = 8;
-	  ArrayList<ArrayList<Integer>>  combinations = subSetSumUtil.getCombinations(input, targetSum);
+	  List<ArrayList<Integer>>  combinations = subSetSumUtil.findSubsetsWithTargetSum(input, targetSum);
 	  printCombinations(combinations,targetSum, input);
 	  	  
   }
   
   @Test
   public void testCombinationNotPresentSumIsGreater() {
-	  int[] input = { 4,5,6,7};
+	  int[] input = { 8,4,5,2,10};
 	  int targetSum = 25;
-	  ArrayList<ArrayList<Integer>>  combinations = subSetSumUtil.getCombinations(input, targetSum);
+	  List<ArrayList<Integer>>  combinations = subSetSumUtil.findSubsetsWithTargetSum(input, targetSum);
 	  printCombinations(combinations,targetSum, input);
 	  	  
   }
   
   @Test
   public void testLargeArray() {
-	  int[] input = { 1,2,3,4,5,6,7,8,9};
+	  int[] input = { 5,8,5,10,12,19,13,22,24,2};
 	  int targetSum = 18;
-	  ArrayList<ArrayList<Integer>>  combinations = subSetSumUtil.getCombinations(input, targetSum);
+	  List<ArrayList<Integer>>  combinations = subSetSumUtil.findSubsetsWithTargetSum(input, targetSum);
 	  printCombinations(combinations,targetSum, input);
 	  	  
   }
@@ -94,7 +86,7 @@ public class SubSetSumTest {
   public void testSmallInput(){
 	  int[] input = { 1};
 	  int targetSum = 18;
-	  ArrayList<ArrayList<Integer>>  combinations = subSetSumUtil.getCombinations(input, targetSum);
+	  List<ArrayList<Integer>>  combinations = subSetSumUtil.findSubsetsWithTargetSum(input, targetSum);
 	  printCombinations(combinations,targetSum, input);
   }
   
@@ -102,19 +94,27 @@ public class SubSetSumTest {
   public void testEmptyArray(){
 	  int[] input = { };
 	  int targetSum = 1;
-	  ArrayList<ArrayList<Integer>>  combinations = subSetSumUtil.getCombinations(input, targetSum);
+	  List<ArrayList<Integer>>  combinations = subSetSumUtil.findSubsetsWithTargetSum(input, targetSum);
 	  printCombinations(combinations,targetSum, input);
+  }
+  
+  @Test
+  public void testEmptyArrayZeroSum(){
+     int[] input = { };
+     int targetSum = 0;
+     List<ArrayList<Integer>>  combinations = subSetSumUtil.findSubsetsWithTargetSum(input, targetSum);
+     printCombinations(combinations,targetSum, input);
   }
   
   @Test
   public void testTargetSumIsZero(){
 	  int[] input = { 4,5,6,7};
 	  int targetSum = 0;
-	  ArrayList<ArrayList<Integer>>  combinations = subSetSumUtil.getCombinations(input, targetSum);
+	  List<ArrayList<Integer>>  combinations = subSetSumUtil.findSubsetsWithTargetSum(input, targetSum);
 	  printCombinations(combinations,targetSum, input);
   }
   
-  private void printCombinations(ArrayList<ArrayList<Integer>> combinations, int targetSum,int[] input){
+  private void printCombinations(List<ArrayList<Integer>> combinations, int targetSum,int[] input){
 	  System.out.println("Printing combinations for input "+Arrays.toString(input)+" and for target sum :"+targetSum);
 	  System.out.println("Number of combinations found : "+combinations.size());
 	  for(ArrayList<Integer> combinationFound:combinations){
