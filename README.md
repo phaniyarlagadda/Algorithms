@@ -7,5 +7,7 @@ Implementations of below problems
 4. Generate combinations
 5. Generate permutations
 6. Generate subsets with target sum.
+7. Combination list of lists recursive.
+8. Combination of list of lists iterative
  
 All the implementations have test cases. To run the test cases you need TestNG & Apache commons lang
