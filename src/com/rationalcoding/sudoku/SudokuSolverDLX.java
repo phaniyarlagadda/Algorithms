@@ -13,6 +13,9 @@ import com.rationalcoding.sudoku.Node.ConstraintType;
 
 /**
  * Sudoku solver using the dancing links technique by Knuth
+ * Ref: http://en.wikipedia.org/wiki/Exact_cover
+ * http://www.stolaf.edu/people/hansonr/sudoku/exactcovermatrix.htm
+ * http://en.wikipedia.org/wiki/Knuth's_Algorithm_X
  * @author yarlagadda
  *
  */
@@ -31,7 +34,7 @@ public class SudokuSolverDLX {
    }
    
    /**
-    * initializes and connects the requied rows and columns
+    * initializes and connects the required rows and columns
     */
    public void intialize(){
       List<Node> cellConstraints = new ArrayList<Node>();
