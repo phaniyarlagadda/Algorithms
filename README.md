@@ -9,5 +9,7 @@ Implementations of below problems
 6. Generate subsets with target sum.
 7. Combination list of lists recursive.
 8. Combination of list of lists iterative
+9. Sudoku Solver with dancing link technique (com.rationalcoding.sudoku)
+10. Simple sudoku solver with simple recursive search and fill and second with fill in increasing order of constraints.
  
 All the implementations have test cases. To run the test cases you need TestNG & Apache commons lang
